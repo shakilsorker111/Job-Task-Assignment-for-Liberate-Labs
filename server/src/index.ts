@@ -9,6 +9,18 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+interface Event {
+  id: string;
+  title: string;
+  date: string;
+  time: string;
+  notes?: string;
+  category: string;
+  archived: boolean;
+}
+
+const events: Event[] = [];
+
 
 
 
