@@ -46,6 +46,12 @@ app.post('/post-event', (req, res) => {
 });
 
 
+app.get('/all-events', (req, res) => {
+  const sorted = events.sort((a, b) => new Date(`${a.date}T${a.time}`).getTime() - new Date(`${b.date}T${b.time}`).getTime());
+  res.status(200).json(sorted);
+});
+
+
 
 
 app.get('/', (req, res) => {
