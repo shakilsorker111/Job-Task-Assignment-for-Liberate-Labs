@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import { categorizeEvent } from './utils/categorize';
 
 dotenv.config();
 const app = express();
@@ -22,7 +23,27 @@ interface Event {
 const events: Event[] = [];
 
 
+app.post('/post-event', (req, res) => {
+  const { title, date, time, notes } = req.body;
 
+  if (!title || !date || !time) {
+    return res.status(400).json({ message: 'Title, date, and time are required.' });
+  }
+
+  const category = categorizeEvent(title, notes);
+  const newEvent: Event = {
+    id: Date.now().toString(),
+    title,
+    date,
+    time,
+    notes,
+    category,
+    archived: false
+  };
+
+  events.push(newEvent);
+  res.status(201).json(newEvent);
+});
 
 
 
