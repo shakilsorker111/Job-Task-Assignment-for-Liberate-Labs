@@ -60,6 +60,15 @@ app.put('/update/:id', (req, res) => {
   res.status(200).json(event);
 });
 
+app.delete('/delete/:id', (req, res) => {
+  const { id } = req.params;
+  const index = events.findIndex(e => e.id === id);
+  if (index === -1) return res.status(404).json({ message: 'Event not found.' });
+
+  events.splice(index, 1);
+  res.status(204).send();
+});
+
 
 
 
