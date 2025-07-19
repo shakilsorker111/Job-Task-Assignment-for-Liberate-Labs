@@ -1,5 +1,6 @@
 import './App.css'
 import EventForm from './components/EventForm'
+import EventList from './components/EventList'
 
 function App() {
 
@@ -7,6 +8,7 @@ function App() {
     <>
       <h1>Hello World</h1>
       <EventForm></EventForm>
+      <EventList></EventList>
     </>
   )
 }
