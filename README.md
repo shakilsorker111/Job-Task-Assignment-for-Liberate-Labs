@@ -4,7 +4,7 @@ A full-stack TypeScript-based Event Scheduling App that allows users to create, 
 
 ## 🚀 Live Site
 
-🔗 [Visit Live Site]()
+🔗 [Visit Live Site](https://spectacular-hotteok-29028d.netlify.app/)
 
 ---
 
@@ -31,6 +31,7 @@ A full-stack TypeScript-based Event Scheduling App that allows users to create, 
 - Vite
 - Tailwind CSS
 - Axios
+- hot toast
 
 **Backend:**
 - Node.js
@@ -46,3 +47,19 @@ A full-stack TypeScript-based Event Scheduling App that allows users to create, 
 
 Example:  
 Event titled `"Team Meeting with Client"` → `Category: Work`
+
+
+✅ Setup Instructions (Frontend & Backend):
+
+🖥️ Backend (Node.js + TypeScript + Express):
+1. just clone the repository
+2. Navigate to server folder : cd server
+3. give prompt in terminal : npm install
+4. Start the backend server (dev mode) : npm run dev
+
+
+💻 Frontend (React + TypeScript + Tailwind CSS);
+1. just clone the repository
+2. Navigate to server folder : cd client
+3. give prompt in terminal : npm install
+4. Start the frontend app : npm run dev
