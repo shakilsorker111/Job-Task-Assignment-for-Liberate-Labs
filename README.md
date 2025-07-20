@@ -63,3 +63,15 @@ Event titled `"Team Meeting with Client"` → `Category: Work`
 2. Navigate to server folder : cd client
 3. give prompt in terminal : npm install
 4. Start the frontend app : npm run dev
+
+
+
+🔌 API Endpoints & Purpose:
+
+1. POST '/post-event' : Create a new event. Expects title, date, time, and optional notes. Automatically assigns category.
+
+2. GET '/all-events' : Fetch all events. Sorted by date/time ascending.
+
+3. DELETE '/delete/:id' : Delete an event by its ID.
+
+4. PUT '/update/:id' : Toggle archived status of an event.
