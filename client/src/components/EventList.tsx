@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import toast, { Toaster } from 'react-hot-toast';
 
 interface Event {
   id: string;
@@ -11,20 +12,27 @@ interface Event {
   archived: boolean;
 }
 
-const EventList: React.FC = () => {
+interface EventListProps {
+  fetch: boolean;
+  setFetch: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+
+const EventList: React.FC<EventListProps> = ({fetch, setFetch}) => {
   const [events, setEvents] = useState<Event[]>([]);
   const [filter, setFilter] = useState<string>("All");
   const [error, setError] = useState<string>("");
 
   const fetchEvents = async () => {
     try {
-      const res = await axios.get<Event[]>("http://localhost:5000/all-events");
+      const res = await axios.get<Event[]>("https://server-pied-omega-19.vercel.app/all-events");
       const sorted = res.data.sort(
         (a, b) =>
           new Date(`${a.date}T${a.time}`).getTime() -
           new Date(`${b.date}T${b.time}`).getTime()
       );
       setEvents(sorted);
+      setFetch(false);
     } catch (err) {
       setError("Failed to load events. Please try again.");
     }
@@ -32,8 +40,9 @@ const EventList: React.FC = () => {
 
   const deleteEvent = async (id: string) => {
     try {
-      await axios.delete(`http://localhost:5000/delete/${id}`);
+      await axios.delete(`https://server-pied-omega-19.vercel.app/delete/${id}`);
       setEvents((prev) => prev.filter((e) => e.id !== id));
+      toast.success("Event Deleted successfully!");
     } catch {
       setError("Could not delete the event.");
     }
@@ -41,10 +50,11 @@ const EventList: React.FC = () => {
 
   const archiveEvent = async (id: string) => {
     try {
-      await axios.put(`http://localhost:5000/update/${id}`);
+      await axios.put(`https://server-pied-omega-19.vercel.app/update/${id}`);
       setEvents((prev) =>
         prev.map((e) => (e.id === id ? { ...e, archived: true } : e))
       );
+      toast.success("Successfully Archived!");
     } catch {
       setError("Could not archive the event.");
     }
@@ -55,7 +65,7 @@ const EventList: React.FC = () => {
 
   useEffect(() => {
     fetchEvents();
-  }, []);
+  }, [fetch]);
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-6 space-y-6">
@@ -125,6 +135,7 @@ const EventList: React.FC = () => {
           </div>
         ))}
       </div>
+      <Toaster />
     </div>
   );
 };

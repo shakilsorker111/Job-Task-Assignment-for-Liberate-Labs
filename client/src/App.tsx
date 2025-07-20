@@ -1,8 +1,14 @@
+import { useState } from "react";
 import "./App.css";
 import EventForm from "./components/EventForm";
 import EventList from "./components/EventList";
 
 function App() {
+  const [fetch, setFetch] = useState(false);
+  console.log(fetch)
+  const reFetch = () =>{
+    setFetch(true);
+  }
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-100 px-4 py-8">
       <div className="max-w-6xl mx-auto space-y-10">
@@ -16,11 +22,11 @@ function App() {
         </header>
 
         <section className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
-          <EventForm />
+          <EventForm reFetch={reFetch} />
         </section>
 
         <section className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
-          <EventList />
+          <EventList fetch={fetch} setFetch={setFetch} />
         </section>
       </div>
     </div>

@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
+import toast, { Toaster } from 'react-hot-toast';
 
-const EventForm: React.FC = () => {
+interface EventFormProps {
+  reFetch: () => void;
+}
+
+const EventForm: React.FC<EventFormProps> = ({reFetch}) => {
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
@@ -21,7 +26,7 @@ const EventForm: React.FC = () => {
     }
 
     try {
-      const res = await axios.post("http://localhost:5000/post-event", {
+      const res = await axios.post("https://server-pied-omega-19.vercel.app/post-event", {
         title,
         date,
         time,
@@ -36,6 +41,8 @@ const EventForm: React.FC = () => {
       setDate("");
       setTime("");
       setNotes("");
+      toast.success("Event added successfully!");
+      reFetch();
     } catch (err: any) {
       setError(err?.response?.data?.message || "Something went wrong.");
     } finally {
@@ -138,6 +145,7 @@ const EventForm: React.FC = () => {
           {loading ? "Adding..." : "➕ Add Event"}
         </button>
       </div>
+      <Toaster />
     </form>
   );
 };
